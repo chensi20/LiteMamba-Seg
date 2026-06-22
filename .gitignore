@@ -16,3 +16,5 @@ logs/
 results/
 experiment_logs/
 final_visuals_fi*/
+=1.2.0
+*.whl
