@@ -57,12 +57,35 @@ The pretrained model weights are archived on Zenodo:
 
 - **DOI:** `https://doi.org/10.5281/zenodo.20798373`
 
-### 🔧 Setup Steps:
-1. Create a folder named `./checkpoints/` in your local project root directory.
-2. Download the `best_model.pth` from the link above and place it inside `./checkpoints/`.
-3. **Crucial:** Please rename the downloaded file to match your `Config.EXP_NAME` defined in `config.py`. For example, rename it to `best_model_Conv_Bottleneck_D4.pth` before running `test.py`.
+### Setup Steps
+1. Create a folder named `./checkpoints/` in the project root directory.
+2. Download the pretrained checkpoint from the Zenodo record.
+3. Place the downloaded file into `./checkpoints/`.
+4. Rename the checkpoint file to match `Config.EXP_NAME` defined in `config.py`.
+
+For example, if `Config.EXP_NAME` is set to:
+
+```python
+best_model_Conv_Bottleneck_D4
+```
+
+then the checkpoint file should be renamed as:
+
+```text
+./checkpoints/best_model_Conv_Bottleneck_D4.pth
+```
+
+before running evaluation.
 
 ## Environment Setup
+The code was tested with the following environment:
+
+- Python 3.10.8
+- PyTorch 2.1.2
+- torchvision 0.16.2
+- CUDA 11.8
+- NVIDIA GeForce RTX 3080 Ti
+
 Install the required dependencies with:
 
 ```bash
@@ -77,26 +100,39 @@ conda activate litemamba
 pip install -r requirements.txt
 ```
 
+Please note that `mamba-ssm` and `causal-conv1d` are environment-sensitive dependencies. The experiments in this repository were tested with CUDA 11.8, PyTorch 2.1, and Python 3.10. You may need to install the corresponding compatible wheels according to your local system configuration.
+
+If you encounter OpenMP-related warnings on some systems, you may optionally run:
+
+```bash
+export OMP_NUM_THREADS=1
+```
+
+before training or evaluation.
+
 ## Evaluation
 To reproduce the reported test results, run:
 
 ```bash
-python test.py --weights ./weights/best_model.pth --data_root ./datasets/TestDataset
+python test.py
 ```
 
-If your implementation uses different argument names, please modify the command accordingly.
+Please make sure that:
+- the dataset path is correctly configured
+- the pretrained checkpoint is placed in `./checkpoints/`
+- the checkpoint filename matches `Config.EXP_NAME` in `config.py`
 
 ## Training
 To train LiteMamba-Seg from scratch, run:
 
 ```bash
-python train.py --train_root ./datasets/TrainDataset --val_root ./datasets/TestDataset/CVC-ClinicDB
+python train.py
 ```
 
 Please modify the dataset paths according to your local setup and training protocol.
 
 ## Outputs
-Predicted masks and evaluation results will be saved to the corresponding output directory defined in the testing script. You may also save qualitative results for visualization and comparison.
+Predicted masks and evaluation results will be saved to the output directory defined in the testing script. You may also save qualitative results for visualization and comparison.
 
 ## Notes
 - Public datasets are **not redistributed** in this repository or in the Zenodo record.
@@ -110,7 +146,7 @@ If you find this repository useful, please cite the corresponding paper:
 
 ```bibtex
 @article{LiteMambaSeg,
-  title={LiteMamba-Seg: A Systematic Evaluation of Lightweight Mamba Integration Strategies for Efficient and Real-Time Polyp Segmentation},
+  title={Efficient and Real-Time Polyp Segmentation: A Systematic Evaluation of Lightweight Mamba Integration Strategies},
   author={...},
   journal={...},
   year={2026}
