@@ -1,0 +1,18 @@
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+.DS_Store
+*.pth
+*.pkl
+*.png
+*.jpg
+
+# 针对你当前目录的精准过滤
+datasets/
+data/
+checkpoints/
+logs/
+results/
+experiment_logs/
+final_visuals_fi*/

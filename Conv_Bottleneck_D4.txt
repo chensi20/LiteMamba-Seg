@@ -1,0 +1,729 @@
+Random seed fixed: 42
+Starting training | Device: cuda | Model: MambaSeg
+============================================================
+Experiment Name      : Conv_Bottleneck_D4
+Seed                 : 42
+IMG_SIZE             : 352
+Layer3 Mamba         : False
+Bottleneck Mamba     : True
+D4 Mamba             : True
+Conv Refine          : True
+============================================================
+--- Loading Standard PraNet Dataset ---
+[Train (1450)] Found 1450 sample pairs.
+[Validation (ClinicDB-Test)] Found 62 sample pairs.
+[Test (External)] Found 196 sample pairs.
+Data loading complete: Train set 90 batches | Val set 4 batches
+==================================================
+Building Model Variants (Full Ablation Base)...
+[*] ResNet34 Encoder   : True
+[*] Layer3 Mamba       : False
+[*] Decoder D4 Mamba   : True
+[*] Bottleneck Mamba   : True
+[*] Conv Refinement    : True
+==================================================
+!!! CURRENT MODEL PARAMS: 26.81 M
+
+Epoch 1 Summary:
+   Train Loss: 2.1315 | Val Loss: 1.2083
+   Dice: 0.7060 | IoU: 0.5560
+   Recall: 0.8643 | Precision: 0.6202
+   LR: 0.000100 | Best Dice!
+------------------------------------------------------------
+
+Epoch 2 Summary:
+   Train Loss: 1.8170 | Val Loss: 1.0932
+   Dice: 0.7743 | IoU: 0.6411
+   Recall: 0.8514 | Precision: 0.7329
+   LR: 0.000100 | Best Dice!
+------------------------------------------------------------
+
+Epoch 3 Summary:
+   Train Loss: 1.6756 | Val Loss: 1.0703
+   Dice: 0.8021 | IoU: 0.6724
+   Recall: 0.8822 | Precision: 0.7476
+   LR: 0.000100 | Best Dice!
+------------------------------------------------------------
+
+Epoch 4 Summary:
+   Train Loss: 1.5909 | Val Loss: 1.0613
+   Dice: 0.7487 | IoU: 0.6045
+   Recall: 0.8833 | Precision: 0.6709
+   LR: 0.000100 | 
+------------------------------------------------------------
+
+Epoch 5 Summary:
+   Train Loss: 1.4948 | Val Loss: 0.9446
+   Dice: 0.8145 | IoU: 0.6910
+   Recall: 0.8613 | Precision: 0.7898
+   LR: 0.000099 | Best Dice!
+------------------------------------------------------------
+
+Epoch 6 Summary:
+   Train Loss: 1.4338 | Val Loss: 0.8555
+   Dice: 0.8368 | IoU: 0.7204
+   Recall: 0.8661 | Precision: 0.8248
+   LR: 0.000099 | Best Dice!
+------------------------------------------------------------
+
+Epoch 7 Summary:
+   Train Loss: 1.3534 | Val Loss: 0.8814
+   Dice: 0.8200 | IoU: 0.6985
+   Recall: 0.8772 | Precision: 0.7875
+   LR: 0.000099 | 
+------------------------------------------------------------
+
+Epoch 8 Summary:
+   Train Loss: 1.3127 | Val Loss: 0.8768
+   Dice: 0.8261 | IoU: 0.7093
+   Recall: 0.9133 | Precision: 0.7729
+   LR: 0.000098 | 
+------------------------------------------------------------
+
+Epoch 9 Summary:
+   Train Loss: 1.2562 | Val Loss: 0.7664
+   Dice: 0.8850 | IoU: 0.7953
+   Recall: 0.8977 | Precision: 0.8778
+   LR: 0.000098 | Best Dice!
+------------------------------------------------------------
+
+Epoch 10 Summary:
+   Train Loss: 1.1939 | Val Loss: 0.7060
+   Dice: 0.8659 | IoU: 0.7664
+   Recall: 0.9067 | Precision: 0.8366
+   LR: 0.000098 | 
+------------------------------------------------------------
+
+Epoch 11 Summary:
+   Train Loss: 1.1459 | Val Loss: 0.7219
+   Dice: 0.8444 | IoU: 0.7329
+   Recall: 0.8507 | Precision: 0.8461
+   LR: 0.000097 | 
+------------------------------------------------------------
+
+Epoch 12 Summary:
+   Train Loss: 1.1159 | Val Loss: 0.6048
+   Dice: 0.8859 | IoU: 0.7965
+   Recall: 0.9212 | Precision: 0.8581
+   LR: 0.000097 | Best Dice!
+------------------------------------------------------------
+
+Epoch 13 Summary:
+   Train Loss: 1.0687 | Val Loss: 0.6269
+   Dice: 0.8158 | IoU: 0.7055
+   Recall: 0.9036 | Precision: 0.7596
+   LR: 0.000096 | 
+------------------------------------------------------------
+
+Epoch 14 Summary:
+   Train Loss: 1.0361 | Val Loss: 0.6186
+   Dice: 0.8217 | IoU: 0.7143
+   Recall: 0.9162 | Precision: 0.7654
+   LR: 0.000095 | 
+------------------------------------------------------------
+
+Epoch 15 Summary:
+   Train Loss: 0.9935 | Val Loss: 0.6418
+   Dice: 0.8392 | IoU: 0.7280
+   Recall: 0.9180 | Precision: 0.7881
+   LR: 0.000095 | 
+------------------------------------------------------------
+
+Epoch 16 Summary:
+   Train Loss: 0.9725 | Val Loss: 0.5650
+   Dice: 0.8749 | IoU: 0.7801
+   Recall: 0.8986 | Precision: 0.8589
+   LR: 0.000094 | 
+------------------------------------------------------------
+
+Epoch 17 Summary:
+   Train Loss: 0.9297 | Val Loss: 0.5334
+   Dice: 0.8436 | IoU: 0.7324
+   Recall: 0.8841 | Precision: 0.8120
+   LR: 0.000093 | 
+------------------------------------------------------------
+
+Epoch 18 Summary:
+   Train Loss: 0.9149 | Val Loss: 0.5041
+   Dice: 0.8742 | IoU: 0.7793
+   Recall: 0.8612 | Precision: 0.8922
+   LR: 0.000092 | 
+------------------------------------------------------------
+
+Epoch 19 Summary:
+   Train Loss: 0.8931 | Val Loss: 0.4720
+   Dice: 0.8683 | IoU: 0.7698
+   Recall: 0.9348 | Precision: 0.8114
+   LR: 0.000091 | 
+------------------------------------------------------------
+
+Epoch 20 Summary:
+   Train Loss: 0.8702 | Val Loss: 0.4947
+   Dice: 0.8503 | IoU: 0.7475
+   Recall: 0.9139 | Precision: 0.8003
+   LR: 0.000091 | 
+------------------------------------------------------------
+
+Epoch 21 Summary:
+   Train Loss: 0.8471 | Val Loss: 0.4253
+   Dice: 0.8805 | IoU: 0.7896
+   Recall: 0.9177 | Precision: 0.8543
+   LR: 0.000090 | 
+------------------------------------------------------------
+
+Epoch 22 Summary:
+   Train Loss: 0.8411 | Val Loss: 0.3903
+   Dice: 0.8969 | IoU: 0.8145
+   Recall: 0.9027 | Precision: 0.8974
+   LR: 0.000089 | Best Dice!
+------------------------------------------------------------
+
+Epoch 23 Summary:
+   Train Loss: 0.8043 | Val Loss: 0.4744
+   Dice: 0.8674 | IoU: 0.7720
+   Recall: 0.8933 | Precision: 0.8573
+   LR: 0.000088 | 
+------------------------------------------------------------
+
+Epoch 24 Summary:
+   Train Loss: 0.7953 | Val Loss: 0.4450
+   Dice: 0.8869 | IoU: 0.7985
+   Recall: 0.9454 | Precision: 0.8379
+   LR: 0.000087 | 
+------------------------------------------------------------
+
+Epoch 25 Summary:
+   Train Loss: 0.7696 | Val Loss: 0.4174
+   Dice: 0.8702 | IoU: 0.7795
+   Recall: 0.9623 | Precision: 0.8032
+   LR: 0.000086 | 
+------------------------------------------------------------
+
+Epoch 26 Summary:
+   Train Loss: 0.7478 | Val Loss: 0.3848
+   Dice: 0.8810 | IoU: 0.7910
+   Recall: 0.9217 | Precision: 0.8493
+   LR: 0.000084 | 
+------------------------------------------------------------
+
+Epoch 27 Summary:
+   Train Loss: 0.7598 | Val Loss: 0.3923
+   Dice: 0.8847 | IoU: 0.8040
+   Recall: 0.9559 | Precision: 0.8305
+   LR: 0.000083 | 
+------------------------------------------------------------
+
+Epoch 28 Summary:
+   Train Loss: 0.7420 | Val Loss: 0.3738
+   Dice: 0.8719 | IoU: 0.7786
+   Recall: 0.9189 | Precision: 0.8443
+   LR: 0.000082 | 
+------------------------------------------------------------
+
+Epoch 29 Summary:
+   Train Loss: 0.7298 | Val Loss: 0.3852
+   Dice: 0.8741 | IoU: 0.7815
+   Recall: 0.8877 | Precision: 0.8660
+   LR: 0.000081 | 
+------------------------------------------------------------
+
+Epoch 30 Summary:
+   Train Loss: 0.7104 | Val Loss: 0.3347
+   Dice: 0.9171 | IoU: 0.8493
+   Recall: 0.9077 | Precision: 0.9300
+   LR: 0.000080 | Best Dice!
+------------------------------------------------------------
+
+Epoch 31 Summary:
+   Train Loss: 0.7209 | Val Loss: 0.3536
+   Dice: 0.9113 | IoU: 0.8402
+   Recall: 0.9615 | Precision: 0.8687
+   LR: 0.000078 | 
+------------------------------------------------------------
+
+Epoch 32 Summary:
+   Train Loss: 0.7037 | Val Loss: 0.3212
+   Dice: 0.9367 | IoU: 0.8820
+   Recall: 0.9516 | Precision: 0.9224
+   LR: 0.000077 | Best Dice!
+------------------------------------------------------------
+
+Epoch 33 Summary:
+   Train Loss: 0.6856 | Val Loss: 0.3084
+   Dice: 0.9320 | IoU: 0.8750
+   Recall: 0.9613 | Precision: 0.9048
+   LR: 0.000076 | 
+------------------------------------------------------------
+
+Epoch 34 Summary:
+   Train Loss: 0.7016 | Val Loss: 0.3105
+   Dice: 0.9177 | IoU: 0.8497
+   Recall: 0.9496 | Precision: 0.8893
+   LR: 0.000074 | 
+------------------------------------------------------------
+
+Epoch 35 Summary:
+   Train Loss: 0.6759 | Val Loss: 0.3013
+   Dice: 0.9293 | IoU: 0.8700
+   Recall: 0.9423 | Precision: 0.9177
+   LR: 0.000073 | 
+------------------------------------------------------------
+
+Epoch 36 Summary:
+   Train Loss: 0.6804 | Val Loss: 0.2822
+   Dice: 0.9252 | IoU: 0.8632
+   Recall: 0.9652 | Precision: 0.8901
+   LR: 0.000072 | 
+------------------------------------------------------------
+
+Epoch 37 Summary:
+   Train Loss: 0.6755 | Val Loss: 0.2913
+   Dice: 0.9241 | IoU: 0.8610
+   Recall: 0.9633 | Precision: 0.8894
+   LR: 0.000070 | 
+------------------------------------------------------------
+
+Epoch 38 Summary:
+   Train Loss: 0.6508 | Val Loss: 0.3049
+   Dice: 0.9190 | IoU: 0.8514
+   Recall: 0.9409 | Precision: 0.9004
+   LR: 0.000069 | 
+------------------------------------------------------------
+
+Epoch 39 Summary:
+   Train Loss: 0.6651 | Val Loss: 0.3214
+   Dice: 0.9072 | IoU: 0.8337
+   Recall: 0.9592 | Precision: 0.8623
+   LR: 0.000067 | 
+------------------------------------------------------------
+
+Epoch 40 Summary:
+   Train Loss: 0.6605 | Val Loss: 0.3025
+   Dice: 0.9199 | IoU: 0.8527
+   Recall: 0.9706 | Precision: 0.8747
+   LR: 0.000066 | 
+------------------------------------------------------------
+
+Epoch 41 Summary:
+   Train Loss: 0.6437 | Val Loss: 0.2780
+   Dice: 0.9324 | IoU: 0.8743
+   Recall: 0.9601 | Precision: 0.9064
+   LR: 0.000064 | 
+------------------------------------------------------------
+
+Epoch 42 Summary:
+   Train Loss: 0.6348 | Val Loss: 0.2860
+   Dice: 0.9360 | IoU: 0.8821
+   Recall: 0.9603 | Precision: 0.9134
+   LR: 0.000063 | 
+------------------------------------------------------------
+
+Epoch 43 Summary:
+   Train Loss: 0.6314 | Val Loss: 0.2896
+   Dice: 0.9202 | IoU: 0.8535
+   Recall: 0.9444 | Precision: 0.9002
+   LR: 0.000061 | 
+------------------------------------------------------------
+
+Epoch 44 Summary:
+   Train Loss: 0.6270 | Val Loss: 0.2876
+   Dice: 0.9187 | IoU: 0.8534
+   Recall: 0.9694 | Precision: 0.8752
+   LR: 0.000060 | 
+------------------------------------------------------------
+
+Epoch 45 Summary:
+   Train Loss: 0.6244 | Val Loss: 0.2853
+   Dice: 0.9293 | IoU: 0.8692
+   Recall: 0.9573 | Precision: 0.9030
+   LR: 0.000058 | 
+------------------------------------------------------------
+
+Epoch 46 Summary:
+   Train Loss: 0.6190 | Val Loss: 0.2948
+   Dice: 0.9120 | IoU: 0.8412
+   Recall: 0.9761 | Precision: 0.8578
+   LR: 0.000057 | 
+------------------------------------------------------------
+
+Epoch 47 Summary:
+   Train Loss: 0.6146 | Val Loss: 0.2726
+   Dice: 0.9356 | IoU: 0.8800
+   Recall: 0.9664 | Precision: 0.9069
+   LR: 0.000055 | 
+------------------------------------------------------------
+
+Epoch 48 Summary:
+   Train Loss: 0.6179 | Val Loss: 0.2928
+   Dice: 0.9207 | IoU: 0.8549
+   Recall: 0.9564 | Precision: 0.8884
+   LR: 0.000054 | 
+------------------------------------------------------------
+
+Epoch 49 Summary:
+   Train Loss: 0.5954 | Val Loss: 0.2720
+   Dice: 0.9266 | IoU: 0.8659
+   Recall: 0.9663 | Precision: 0.8908
+   LR: 0.000052 | 
+------------------------------------------------------------
+
+Epoch 50 Summary:
+   Train Loss: 0.5898 | Val Loss: 0.2834
+   Dice: 0.9245 | IoU: 0.8614
+   Recall: 0.9615 | Precision: 0.8907
+   LR: 0.000051 | 
+------------------------------------------------------------
+
+Epoch 51 Summary:
+   Train Loss: 0.5979 | Val Loss: 0.2647
+   Dice: 0.9336 | IoU: 0.8766
+   Recall: 0.9634 | Precision: 0.9061
+   LR: 0.000049 | 
+------------------------------------------------------------
+
+Epoch 52 Summary:
+   Train Loss: 0.6006 | Val Loss: 0.2734
+   Dice: 0.9284 | IoU: 0.8680
+   Recall: 0.9774 | Precision: 0.8854
+   LR: 0.000047 | 
+------------------------------------------------------------
+
+Epoch 53 Summary:
+   Train Loss: 0.5950 | Val Loss: 0.2691
+   Dice: 0.9324 | IoU: 0.8748
+   Recall: 0.9714 | Precision: 0.8971
+   LR: 0.000046 | 
+------------------------------------------------------------
+
+Epoch 54 Summary:
+   Train Loss: 0.5843 | Val Loss: 0.2625
+   Dice: 0.9322 | IoU: 0.8745
+   Recall: 0.9711 | Precision: 0.8972
+   LR: 0.000044 | 
+------------------------------------------------------------
+
+Epoch 55 Summary:
+   Train Loss: 0.5920 | Val Loss: 0.2711
+   Dice: 0.9227 | IoU: 0.8580
+   Recall: 0.9693 | Precision: 0.8815
+   LR: 0.000043 | 
+------------------------------------------------------------
+
+Epoch 56 Summary:
+   Train Loss: 0.5741 | Val Loss: 0.2715
+   Dice: 0.9245 | IoU: 0.8611
+   Recall: 0.9565 | Precision: 0.8962
+   LR: 0.000041 | 
+------------------------------------------------------------
+
+Epoch 57 Summary:
+   Train Loss: 0.5733 | Val Loss: 0.2569
+   Dice: 0.9328 | IoU: 0.8752
+   Recall: 0.9567 | Precision: 0.9111
+   LR: 0.000040 | 
+------------------------------------------------------------
+
+Epoch 58 Summary:
+   Train Loss: 0.5783 | Val Loss: 0.2587
+   Dice: 0.9267 | IoU: 0.8655
+   Recall: 0.9707 | Precision: 0.8880
+   LR: 0.000038 | 
+------------------------------------------------------------
+
+Epoch 59 Summary:
+   Train Loss: 0.5596 | Val Loss: 0.2609
+   Dice: 0.9290 | IoU: 0.8696
+   Recall: 0.9691 | Precision: 0.8934
+   LR: 0.000037 | 
+------------------------------------------------------------
+
+Epoch 60 Summary:
+   Train Loss: 0.5662 | Val Loss: 0.2578
+   Dice: 0.9276 | IoU: 0.8668
+   Recall: 0.9666 | Precision: 0.8927
+   LR: 0.000035 | 
+------------------------------------------------------------
+
+Epoch 61 Summary:
+   Train Loss: 0.5591 | Val Loss: 0.2532
+   Dice: 0.9349 | IoU: 0.8791
+   Recall: 0.9667 | Precision: 0.9057
+   LR: 0.000034 | 
+------------------------------------------------------------
+
+Epoch 62 Summary:
+   Train Loss: 0.5569 | Val Loss: 0.2545
+   Dice: 0.9344 | IoU: 0.8783
+   Recall: 0.9719 | Precision: 0.9007
+   LR: 0.000032 | 
+------------------------------------------------------------
+
+Epoch 63 Summary:
+   Train Loss: 0.5584 | Val Loss: 0.2621
+   Dice: 0.9315 | IoU: 0.8729
+   Recall: 0.9649 | Precision: 0.9012
+   LR: 0.000031 | 
+------------------------------------------------------------
+
+Epoch 64 Summary:
+   Train Loss: 0.5616 | Val Loss: 0.2589
+   Dice: 0.9283 | IoU: 0.8675
+   Recall: 0.9695 | Precision: 0.8913
+   LR: 0.000029 | 
+------------------------------------------------------------
+
+Epoch 65 Summary:
+   Train Loss: 0.5557 | Val Loss: 0.2550
+   Dice: 0.9325 | IoU: 0.8747
+   Recall: 0.9575 | Precision: 0.9100
+   LR: 0.000028 | 
+------------------------------------------------------------
+
+Epoch 66 Summary:
+   Train Loss: 0.5531 | Val Loss: 0.2507
+   Dice: 0.9384 | IoU: 0.8850
+   Recall: 0.9684 | Precision: 0.9106
+   LR: 0.000027 | Best Dice!
+------------------------------------------------------------
+
+Epoch 67 Summary:
+   Train Loss: 0.5499 | Val Loss: 0.2491
+   Dice: 0.9303 | IoU: 0.8714
+   Recall: 0.9687 | Precision: 0.8962
+   LR: 0.000025 | 
+------------------------------------------------------------
+
+Epoch 68 Summary:
+   Train Loss: 0.5442 | Val Loss: 0.2462
+   Dice: 0.9408 | IoU: 0.8900
+   Recall: 0.9743 | Precision: 0.9104
+   LR: 0.000024 | Best Dice!
+------------------------------------------------------------
+
+Epoch 69 Summary:
+   Train Loss: 0.5437 | Val Loss: 0.2486
+   Dice: 0.9360 | IoU: 0.8812
+   Recall: 0.9705 | Precision: 0.9047
+   LR: 0.000023 | 
+------------------------------------------------------------
+
+Epoch 70 Summary:
+   Train Loss: 0.5478 | Val Loss: 0.2528
+   Dice: 0.9324 | IoU: 0.8744
+   Recall: 0.9690 | Precision: 0.8987
+   LR: 0.000021 | 
+------------------------------------------------------------
+
+Epoch 71 Summary:
+   Train Loss: 0.5527 | Val Loss: 0.2483
+   Dice: 0.9345 | IoU: 0.8782
+   Recall: 0.9691 | Precision: 0.9026
+   LR: 0.000020 | 
+------------------------------------------------------------
+
+Epoch 72 Summary:
+   Train Loss: 0.5411 | Val Loss: 0.2534
+   Dice: 0.9331 | IoU: 0.8766
+   Recall: 0.9709 | Precision: 0.8991
+   LR: 0.000019 | 
+------------------------------------------------------------
+
+Epoch 73 Summary:
+   Train Loss: 0.5325 | Val Loss: 0.2386
+   Dice: 0.9396 | IoU: 0.8876
+   Recall: 0.9658 | Precision: 0.9158
+   LR: 0.000018 | 
+------------------------------------------------------------
+
+Epoch 74 Summary:
+   Train Loss: 0.5398 | Val Loss: 0.2421
+   Dice: 0.9428 | IoU: 0.8930
+   Recall: 0.9605 | Precision: 0.9264
+   LR: 0.000017 | Best Dice!
+------------------------------------------------------------
+
+Epoch 75 Summary:
+   Train Loss: 0.5337 | Val Loss: 0.2479
+   Dice: 0.9366 | IoU: 0.8821
+   Recall: 0.9664 | Precision: 0.9095
+   LR: 0.000015 | 
+------------------------------------------------------------
+
+Epoch 76 Summary:
+   Train Loss: 0.5407 | Val Loss: 0.2416
+   Dice: 0.9426 | IoU: 0.8927
+   Recall: 0.9657 | Precision: 0.9211
+   LR: 0.000014 | 
+------------------------------------------------------------
+
+Epoch 77 Summary:
+   Train Loss: 0.5304 | Val Loss: 0.2447
+   Dice: 0.9405 | IoU: 0.8889
+   Recall: 0.9616 | Precision: 0.9212
+   LR: 0.000013 | 
+------------------------------------------------------------
+
+Epoch 78 Summary:
+   Train Loss: 0.5248 | Val Loss: 0.2447
+   Dice: 0.9402 | IoU: 0.8887
+   Recall: 0.9704 | Precision: 0.9127
+   LR: 0.000012 | 
+------------------------------------------------------------
+
+Epoch 79 Summary:
+   Train Loss: 0.5307 | Val Loss: 0.2434
+   Dice: 0.9340 | IoU: 0.8776
+   Recall: 0.9686 | Precision: 0.9025
+   LR: 0.000011 | 
+------------------------------------------------------------
+
+Epoch 80 Summary:
+   Train Loss: 0.5216 | Val Loss: 0.2443
+   Dice: 0.9398 | IoU: 0.8879
+   Recall: 0.9688 | Precision: 0.9130
+   LR: 0.000010 | 
+------------------------------------------------------------
+
+Epoch 81 Summary:
+   Train Loss: 0.5248 | Val Loss: 0.2432
+   Dice: 0.9381 | IoU: 0.8847
+   Recall: 0.9688 | Precision: 0.9099
+   LR: 0.000010 | 
+------------------------------------------------------------
+
+Epoch 82 Summary:
+   Train Loss: 0.5235 | Val Loss: 0.2452
+   Dice: 0.9365 | IoU: 0.8820
+   Recall: 0.9680 | Precision: 0.9078
+   LR: 0.000009 | 
+------------------------------------------------------------
+
+Epoch 83 Summary:
+   Train Loss: 0.5247 | Val Loss: 0.2428
+   Dice: 0.9388 | IoU: 0.8860
+   Recall: 0.9702 | Precision: 0.9102
+   LR: 0.000008 | 
+------------------------------------------------------------
+
+Epoch 84 Summary:
+   Train Loss: 0.5230 | Val Loss: 0.2448
+   Dice: 0.9354 | IoU: 0.8801
+   Recall: 0.9684 | Precision: 0.9055
+   LR: 0.000007 | 
+------------------------------------------------------------
+
+Epoch 85 Summary:
+   Train Loss: 0.5178 | Val Loss: 0.2424
+   Dice: 0.9371 | IoU: 0.8828
+   Recall: 0.9670 | Precision: 0.9096
+   LR: 0.000006 | 
+------------------------------------------------------------
+
+Epoch 86 Summary:
+   Train Loss: 0.5259 | Val Loss: 0.2431
+   Dice: 0.9392 | IoU: 0.8866
+   Recall: 0.9674 | Precision: 0.9131
+   LR: 0.000006 | 
+------------------------------------------------------------
+
+Epoch 87 Summary:
+   Train Loss: 0.5175 | Val Loss: 0.2457
+   Dice: 0.9365 | IoU: 0.8819
+   Recall: 0.9652 | Precision: 0.9102
+   LR: 0.000005 | 
+------------------------------------------------------------
+
+Epoch 88 Summary:
+   Train Loss: 0.5290 | Val Loss: 0.2417
+   Dice: 0.9390 | IoU: 0.8862
+   Recall: 0.9659 | Precision: 0.9143
+   LR: 0.000004 | 
+------------------------------------------------------------
+
+Epoch 89 Summary:
+   Train Loss: 0.5256 | Val Loss: 0.2424
+   Dice: 0.9392 | IoU: 0.8867
+   Recall: 0.9671 | Precision: 0.9137
+   LR: 0.000004 | 
+------------------------------------------------------------
+
+Epoch 90 Summary:
+   Train Loss: 0.5215 | Val Loss: 0.2398
+   Dice: 0.9404 | IoU: 0.8888
+   Recall: 0.9685 | Precision: 0.9145
+   LR: 0.000003 | 
+------------------------------------------------------------
+
+Epoch 91 Summary:
+   Train Loss: 0.5196 | Val Loss: 0.2385
+   Dice: 0.9410 | IoU: 0.8898
+   Recall: 0.9677 | Precision: 0.9163
+   LR: 0.000003 | 
+------------------------------------------------------------
+
+Epoch 92 Summary:
+   Train Loss: 0.5202 | Val Loss: 0.2389
+   Dice: 0.9392 | IoU: 0.8867
+   Recall: 0.9672 | Precision: 0.9135
+   LR: 0.000003 | 
+------------------------------------------------------------
+
+Epoch 93 Summary:
+   Train Loss: 0.5179 | Val Loss: 0.2390
+   Dice: 0.9395 | IoU: 0.8874
+   Recall: 0.9682 | Precision: 0.9133
+   LR: 0.000002 | 
+------------------------------------------------------------
+
+Epoch 94 Summary:
+   Train Loss: 0.5210 | Val Loss: 0.2390
+   Dice: 0.9383 | IoU: 0.8851
+   Recall: 0.9671 | Precision: 0.9119
+   LR: 0.000002 | 
+------------------------------------------------------------
+
+Epoch 95 Summary:
+   Train Loss: 0.5218 | Val Loss: 0.2408
+   Dice: 0.9376 | IoU: 0.8840
+   Recall: 0.9680 | Precision: 0.9098
+   LR: 0.000002 | 
+------------------------------------------------------------
+
+Epoch 96 Summary:
+   Train Loss: 0.5159 | Val Loss: 0.2425
+   Dice: 0.9392 | IoU: 0.8868
+   Recall: 0.9668 | Precision: 0.9139
+   LR: 0.000001 | 
+------------------------------------------------------------
+
+Epoch 97 Summary:
+   Train Loss: 0.5091 | Val Loss: 0.2416
+   Dice: 0.9371 | IoU: 0.8830
+   Recall: 0.9665 | Precision: 0.9103
+   LR: 0.000001 | 
+------------------------------------------------------------
+
+Epoch 98 Summary:
+   Train Loss: 0.5176 | Val Loss: 0.2399
+   Dice: 0.9423 | IoU: 0.8923
+   Recall: 0.9678 | Precision: 0.9188
+   LR: 0.000001 | 
+------------------------------------------------------------
+
+Epoch 99 Summary:
+   Train Loss: 0.5096 | Val Loss: 0.2396
+   Dice: 0.9388 | IoU: 0.8861
+   Recall: 0.9662 | Precision: 0.9137
+   LR: 0.000001 | 
+------------------------------------------------------------
+
+Epoch 100 Summary:
+   Train Loss: 0.5162 | Val Loss: 0.2399
+   Dice: 0.9413 | IoU: 0.8904
+   Recall: 0.9656 | Precision: 0.9188
+   LR: 0.000001 | 
+------------------------------------------------------------
+
+Finish! Best Dice: 0.9428
+Best checkpoint saved to: checkpoints/best_model_Conv_Bottleneck_D4.pth
+Last checkpoint saved to: checkpoints/last_model_Conv_Bottleneck_D4.pth
