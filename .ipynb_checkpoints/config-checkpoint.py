@@ -8,13 +8,13 @@ class Config:
     NUM_WORKERS = 2
     EPOCHS = 100
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-    SEED = 1234 #SEEDS = [42, 3407, 2025, 666, 1234]
+    SEED = 42 #SEEDS = [42, 3407, 2025, 666, 1234]
     NUM_CLASSES = 1
     USE_LAYER3_MAMBA = False
     USE_D4_MAMBA = True
     USE_BOTTLENECK_MAMBA = True
     USE_CONV_REFINE = True
-    EXP_NAME = "1234"
+    EXP_NAME = "42"
 
     BASE_DIR = "/root/autodl-tmp/LiteMamba-Seg/datasets"
     
