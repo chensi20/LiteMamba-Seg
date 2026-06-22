@@ -146,7 +146,7 @@ If you find this repository useful, please cite the corresponding paper:
 
 ```bibtex
 @article{LiteMambaSeg,
-  title={Efficient and Real-Time Polyp Segmentation: A Systematic Evaluation of Lightweight Mamba Integration Strategies},
+  title={Efficient and real-time polyp segmentation: A systematic evaluation of lightweight Mamba integration strategies},
   author={...},
   journal={...},
   year={2026}
