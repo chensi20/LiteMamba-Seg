@@ -1,23 +1,23 @@
+import os
+import cv2
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-import cv2
-import os
-import numpy as np
+from tqdm import tqdm
 
 try:
     from torch.amp import GradScaler
 except ImportError:
     from torch.cuda.amp import GradScaler
-from tqdm import tqdm
 
 from config import Config
 from dataset import get_loaders
+from models.MambaSeg import MambaSeg_UNet as UNet
 from utils.losses import StructureLoss
 from utils.metrics import calculate_metrics
 from utils.tools import seed_everything
-from models.MambaSeg import MambaSeg_UNet as UNet
 
 
 class BoundaryIoULoss(nn.Module):
@@ -25,32 +25,23 @@ class BoundaryIoULoss(nn.Module):
         super(BoundaryIoULoss, self).__init__()
 
     def forward(self, pred, target):
-        """
-        IoU Loss
-        pred: Logits
-        target: Binary Mask
-        """
-        pred = torch.sigmoid(pred)
+        pred = torch.sigmoid(pred.float())
+        target = target.float()
 
         if target.ndim == 3:
             target = target.unsqueeze(1)
         if pred.ndim == 3:
             pred = pred.unsqueeze(1)
 
-        target = target.float()
-
-        pool = nn.MaxPool2d(kernel_size=3, stride=1, padding=1)
-
-        eroded = 1 - pool(1 - target)
-        dilated = pool(target)
+        eroded = 1 - F.max_pool2d(1 - target, kernel_size=3, stride=1, padding=1)
+        dilated = F.max_pool2d(target, kernel_size=3, stride=1, padding=1)
         gt_boundary = dilated - eroded
 
-        intersection = (pred * target * gt_boundary).sum()
-        union = (pred * gt_boundary).sum() + (target * gt_boundary).sum()
+        intersection = (pred * target * gt_boundary).sum(dim=(1, 2, 3))
+        union = (pred * gt_boundary).sum(dim=(1, 2, 3)) + (target * gt_boundary).sum(dim=(1, 2, 3))
 
         boundary_iou = (intersection + 1e-6) / (union - intersection + 1e-6)
-
-        return 1 - boundary_iou
+        return (1 - boundary_iou).mean()
 
 
 def get_lr(optimizer):
@@ -107,6 +98,7 @@ def validate(model, loader, criterion, device):
     running_loss = 0.0
 
     metrics_score = {"dice": 0.0, "iou": 0.0, "recall": 0.0, "precision": 0.0}
+    total_samples = 0
 
     with torch.no_grad():
         for images, masks in tqdm(loader, desc="[Val]", leave=False):
@@ -118,6 +110,8 @@ def validate(model, loader, criterion, device):
             elif masks.ndim == 4 and masks.shape[-1] == 1:
                 masks = masks.permute(0, 3, 1, 2)
 
+            batch_size = images.size(0)
+
             with torch.autocast(device_type="cuda", dtype=torch.float16):
                 preds = model(images)
 
@@ -126,20 +120,20 @@ def validate(model, loader, criterion, device):
 
                 loss = criterion(preds, masks)
 
-            running_loss += loss.item()
+            running_loss += loss.item() * batch_size
 
-            preds_prob = torch.sigmoid(preds)
-            preds_bin = (preds_prob > 0.5).float()
-
-            batch_metrics = calculate_metrics(preds_bin, masks.float())
+    
+            batch_metrics = calculate_metrics(preds.float(), masks.float())
 
             for k in metrics_score:
                 if k in batch_metrics:
-                    metrics_score[k] += batch_metrics[k]
+                    metrics_score[k] += batch_metrics[k] * batch_size
 
-    epoch_loss = running_loss / len(loader)
+            total_samples += batch_size
+
+    epoch_loss = running_loss / total_samples
     for k in metrics_score:
-        metrics_score[k] /= len(loader)
+        metrics_score[k] /= total_samples
 
     return epoch_loss, metrics_score
 
@@ -162,7 +156,7 @@ if __name__ == "__main__":
     print(f"Conv Refine          : {Config.USE_CONV_REFINE}")
     print("=" * 60)
 
-    train_loader, val_loader, _ = get_loaders(Config)
+    train_loader, val_loader = get_loaders(Config)
     print(f"Data loading complete: Train set {len(train_loader)} batches | Val set {len(val_loader)} batches")
 
     model = UNet(
@@ -170,15 +164,13 @@ if __name__ == "__main__":
         use_layer3_mamba=Config.USE_LAYER3_MAMBA,
         use_d4_mamba=Config.USE_D4_MAMBA,
         use_bottleneck_mamba=Config.USE_BOTTLENECK_MAMBA,
-        use_conv_refine=Config.USE_CONV_REFINE
+        use_conv_refine=Config.USE_CONV_REFINE,
     ).to(device)
 
     print(f"!!! CURRENT MODEL PARAMS: {sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6:.2f} M")
 
     optimizer = optim.AdamW(model.parameters(), lr=Config.LEARNING_RATE, weight_decay=1e-4)
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(
-        optimizer, T_max=Config.EPOCHS, eta_min=1e-6
-    )
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=Config.EPOCHS, eta_min=1e-6)
 
     criterion_main = StructureLoss()
     criterion_bound = BoundaryIoULoss().to(device)

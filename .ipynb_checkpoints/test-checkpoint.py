@@ -1,16 +1,16 @@
+import csv
+import datetime
+import glob
+import os
+from PIL import Image
+import cv2
+import numpy as np
 import torch
 import torch.nn.functional as F
-import numpy as np
-import os
-import glob
-import csv
-import cv2
-import datetime
-from PIL import Image
 from tqdm import tqdm
 
-from models.MambaSeg import MambaSeg_UNet as LiteMamba
 from config import Config
+from models.MambaSeg import MambaSeg_UNet as LiteMamba
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -28,10 +28,6 @@ def save_final_log(
     mean_precision: float,
     model_name: str = "LiteMamba",
 ) -> None:
-    """
-    Save one dataset summary for the current experiment.
-    Each experiment has its own CSV to avoid mixing different placement settings.
-    """
     ensure_dir("./experiment_logs")
     csv_path = f"./experiment_logs/final_results_{exp_name}.csv"
     file_exists = os.path.isfile(csv_path)
@@ -86,10 +82,6 @@ def save_detailed_log(
     recall: float,
     precision: float,
 ) -> None:
-    """
-    Save per-image metrics under:
-    ./experiment_logs/details/{EXP_NAME}/{DATASET}/scores.txt
-    """
     detail_dir = f"./experiment_logs/details/{exp_name}/{dataset_name}"
     ensure_dir(detail_dir)
 
@@ -109,22 +101,36 @@ def calculate_metrics_simple(pred: torch.Tensor, target: torch.Tensor):
     fp = (pred * (1 - target)).sum()
     fn = ((1 - pred) * target).sum()
 
-    dice = (2.0 * tp + 1e-5) / (pred.sum() + target.sum() + 1e-5)
-    iou = (tp + 1e-5) / (tp + fp + fn + 1e-5)
-    recall = (tp + 1e-5) / (tp + fn + 1e-5)
-    precision = (tp + 1e-5) / (tp + fp + 1e-5)
+    pred_sum = pred.sum()
+    target_sum = target.sum()
 
-    return float(dice.item()), float(iou.item()), float(recall.item()), float(precision.item())
+    dice = (2.0 * tp + 1e-5) / (pred_sum + target_sum + 1e-5)
+    iou = (tp + 1e-5) / (tp + fp + fn + 1e-5)
+
+    if target_sum.item() == 0:
+        recall = 1.0 if pred_sum.item() == 0 else 0.0
+    else:
+        recall = float((tp / target_sum).item())
+
+    if pred_sum.item() == 0:
+        precision = 1.0 if target_sum.item() == 0 else 0.0
+    else:
+        precision = float((tp / pred_sum).item())
+
+    return (
+        float(dice.item()),
+        float(iou.item()),
+        recall,
+        precision,
+    )
 
 
 def test_dataset(model, img_dir: str, mask_dir: str, dataset_name: str, exp_name: str):
     print(f"\n🚀 Testing: {dataset_name} ...")
 
-    # Save predictions by experiment name to avoid overwriting
     save_pred_dir = f"./results/LiteMamba_Visuals/{exp_name}/{dataset_name}/Preds"
     ensure_dir(save_pred_dir)
 
-    # Save detailed logs by experiment name
     detail_dir = f"./experiment_logs/details/{exp_name}/{dataset_name}"
     ensure_dir(detail_dir)
     detail_log_path = os.path.join(detail_dir, "scores.txt")
@@ -138,13 +144,10 @@ def test_dataset(model, img_dir: str, mask_dir: str, dataset_name: str, exp_name
         print(f"⚠️ Image not found: {img_dir}")
         return None, None, None, None
 
-    dice_list = []
-    iou_list = []
-    recall_list = []
-    precision_list = []
+    dice_list, iou_list, recall_list, precision_list = [], [], [], []
+    missing_count, mismatch_count = 0, 0
 
-    missing_count = 0
-    mismatch_count = 0
+    target_size = Config.IMG_SIZE if isinstance(Config.IMG_SIZE, tuple) else (Config.IMG_SIZE, Config.IMG_SIZE)
 
     model.eval()
 
@@ -152,9 +155,9 @@ def test_dataset(model, img_dir: str, mask_dir: str, dataset_name: str, exp_name
         try:
             image = Image.open(img_path).convert("RGB")
             original_w, original_h = image.size
-            image = image.resize((Config.IMG_SIZE, Config.IMG_SIZE))
+            image_resized = image.resize(target_size, Image.BILINEAR)
 
-            img_np = np.array(image).astype(np.float32) / 255.0
+            img_np = np.array(image_resized).astype(np.float32) / 255.0
             mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
             std = np.array([0.229, 0.224, 0.225], dtype=np.float32)
             img_norm = (img_np - mean) / std
@@ -177,8 +180,6 @@ def test_dataset(model, img_dir: str, mask_dir: str, dataset_name: str, exp_name
                 continue
 
             mask_gt = Image.open(mask_path).convert("L")
-            mask_gt = mask_gt.resize((original_w, original_h), Image.NEAREST)
-
             mask_np = np.array(mask_gt).astype(np.float32) / 255.0
             mask_tensor = torch.tensor(mask_np > 0.5).float().to(device)
 
@@ -188,13 +189,18 @@ def test_dataset(model, img_dir: str, mask_dir: str, dataset_name: str, exp_name
                     if isinstance(pred, (tuple, list)):
                         pred = pred[0]
 
+              
+                pred = pred.float()
+
+            
                 pred = F.interpolate(
                     pred.unsqueeze(0) if pred.ndim == 3 else pred,
                     size=(original_h, original_w),
                     mode="bilinear",
                     align_corners=False,
-                )
-                pred = torch.sigmoid(pred).squeeze()
+                ).squeeze()
+
+                pred = torch.sigmoid(pred)
 
             if pred.shape != mask_tensor.shape:
                 print(f"\n⚠️ Shape mismatch on {base_name}: pred {pred.shape} vs mask {mask_tensor.shape}")
@@ -219,10 +225,7 @@ def test_dataset(model, img_dir: str, mask_dir: str, dataset_name: str, exp_name
             continue
 
     if missing_count > 0 or mismatch_count > 0:
-        print(
-            f"\n⚠️ [Warning] {dataset_name}: "
-            f"Missed {missing_count} masks, Skipped {mismatch_count} shape mismatches."
-        )
+        print(f"\n⚠️ [Warning] {dataset_name}: Missed {missing_count} masks, Skipped {mismatch_count} shape mismatches.")
 
     if dice_list:
         mean_dice = np.mean(dice_list)
@@ -262,7 +265,6 @@ if __name__ == "__main__":
         use_conv_refine=Config.USE_CONV_REFINE,
     ).to(device)
 
-    # Read checkpoint by experiment name
     weights_path = f"./checkpoints/best_model_{Config.EXP_NAME}.pth"
 
     if os.path.exists(weights_path):
@@ -270,7 +272,6 @@ if __name__ == "__main__":
         print(f"✅ Loaded best weights from: {weights_path}")
     else:
         print(f"❌ Error: Model weights not found at {weights_path}")
-        print("Please check if train.py successfully saved the weights with EXP_NAME!")
         exit()
 
     test_datasets = ["CVC-ClinicDB", "CVC-ColonDB", "ETIS-LaribPolypDB", "Kvasir"]
